@@ -17,8 +17,18 @@ services:
         resource: '../src/'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/Model/'
             - '../src/Kernel.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    League\Fractal\Manager:
+
+    exchange.rates.api.io.client:
+        class: GuzzleHttp\Client
+        factory: ['App\Infrastructure\DataProvider\ExchangeRate\ExchangeRatesApiIO\ClientFactory', 'create']
+
+    App\Infrastructure\DataProvider\ExchangeRate\ExchangeRatesApiIO\ExchangeRatesApiIO:
+        arguments:
+            $client: '@exchange.rates.api.io.client'

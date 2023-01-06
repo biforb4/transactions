@@ -1,5 +1,13 @@
-controllers:
+api:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/Infrastructure/Api
+        namespace: App\Infrastructure\Api
+    prefix: /api/v1
+    type: attribute
+    defaults:
+        _format: json
+ui:
+    resource:
+        path: ../src/Infrastructure/UI
+        namespace: App\Infrastructure\UI
     type: attribute

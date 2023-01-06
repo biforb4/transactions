@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Change currency</h1>
+
+    <p>Transaction id: {{ id }}</p>
+
+    <p>FROM: <span id="from"></span></p>
+    <form>
+        <input type="hidden" id="id" name="id" value="{{ id }}">
+        <label for="id">Target Currency:</label><br>
+        <input type="text" id="targetCurrency" name="targetCurrency"><br>
+        <input type="submit" value="Submit" onclick="return save()">
+    </form>
+    <div id="result"></div>
+
+
+
+
+
+
+
+
+    <script>
+      const result = document.getElementById("result");
+      const from = document.getElementById("from");
+
+      function handleSubmit(event) {
+        result.innerHTML = "";
+        event.preventDefault();
+
+        const data = new FormData(event.target);
+        const request = Object.fromEntries(data.entries());
+        fetch('http://localhost:8000/api/v1/transactions/{{ id }}', {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(request)
+          }
+        ).then(response => {
+          if (response.status != 200) {
+            result.innerHTML = "<b>ERROR</b>"
+          } else {
+            return response.json()
+          }
+        })
+          .then(data => {
+            result.innerHTML = "<p>SUCCESS</p>" + JSON.stringify(data.data);
+            refresh();
+          });
+      }
+
+      function refresh() {
+        fetch("http://localhost:8000/api/v1/transactions/{{ id }}")
+          .then(response => response.json())
+          .then(data => {
+            from.innerHTML = `<b>${data.data.targetCurrency}</b>`
+          })
+      }
+
+      refresh();
+
+      const form = document.querySelector('form');
+      form.addEventListener('submit', handleSubmit);
+
+    </script>
+{% endblock %}

@@ -4,16 +4,35 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.8",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.14",
+        "guzzlehttp/guzzle": "^7.0",
+        "league/fractal": "*",
+        "pagerfanta/pagerfanta": "*",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.15",
+        "sensio/framework-extra-bundle": "^6.2",
+        "symfony/cache": "6.2.*",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.2.*",
+        "symfony/messenger": "6.2.*",
+        "symfony/monolog-bundle": "*",
+        "symfony/property-access": "6.2.*",
+        "symfony/property-info": "6.2.*",
         "symfony/runtime": "6.2.*",
+        "symfony/serializer": "6.2.*",
+        "symfony/twig-bundle": "6.2.*",
+        "symfony/uid": "6.2.*",
         "symfony/yaml": "6.2.*",
-        "vimeo/psalm": "^5.4"
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
@@ -61,5 +80,12 @@
             "allow-contrib": false,
             "require": "6.2.*"
         }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "6.2.*",
+        "symfony/css-selector": "6.2.*",
+        "symfony/phpunit-bridge": "^6.2",
+        "vimeo/psalm": "^5.4"
     }
 }

@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>New Transaction</h1>
+
+    <form>
+        <label for="paymentMethod">Payment Method:</label><br>
+        <input type="text" id="paymentMethod" name="paymentMethod"><br>
+        <label for="transactionType">Transaction Type:</label><br>
+        <input type="text" id="transactionType" name="transactionType"><br>
+        <label for="baseAmount">Base Amount:</label><br>
+        <input type="text" id="baseAmount" name="baseAmount"><br>
+        <label for="baseCurrency">Base Currency:</label><br>
+        <input type="text" id="baseCurrency" name="baseCurrency"><br>
+        <label for="targetCurrency">Target Currency:</label><br>
+        <input type="text" id="targetCurrency" name="targetCurrency"><br>
+        <input type="submit" value="Submit" onclick="return save()">
+    </form>
+
+    <div id="result"></div>
+
+
+
+
+
+
+
+
+    <script>
+      const result = document.getElementById("result");
+      function handleSubmit(event) {
+        result.innerHTML = "";
+        event.preventDefault();
+
+        const data = new FormData(event.target);
+        const request = Object.fromEntries(data.entries());
+        fetch('http://localhost:8000/api/v1/transactions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(request)}
+        ).then(response => {
+            if(response.status != 200) {
+              result.innerHTML = "<b>ERROR</b>"
+            }else {
+              return response.json()
+            }
+          })
+          .then(data => {
+            result.innerHTML = "<p>SUCCESS</p>" + JSON.stringify(data.data);
+          });
+      }
+
+      const form = document.querySelector('form');
+      form.addEventListener('submit', handleSubmit);
+
+    </script>
+{% endblock %}
